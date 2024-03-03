@@ -21,6 +21,17 @@ productRouter.get("/:page",async(req,res)=>{
     }
 });
 
-
+productRouter.post("/post",async(req,res)=>{
+    try {
+        const {pID,title,image,price,description}=req.body;
+        const data=await productModel({
+            pID,title,image,price,description
+        });
+        await data.save();
+        res.status(200).send({msg:"sucess"});
+    } catch (error) {
+        res.status(400).send({msg:"error"});
+    }
+})
 
 module.exports=productRouter;
